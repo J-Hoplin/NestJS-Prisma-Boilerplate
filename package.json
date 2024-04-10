@@ -7,6 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "db:up": "docker-compose -f ./deployments/database/docker-compose.yaml up -d",
+    "db:migrate": "npx prisma migrate --name $1",
+    "db:generate": "npx prisma generate",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
