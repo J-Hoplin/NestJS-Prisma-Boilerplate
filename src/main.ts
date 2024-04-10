@@ -8,7 +8,10 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
+  // Nest application setting
   nestAppConfig(app);
+
+  // Nest application document setting
   nestSwaggerConfig(app, {
     title: 'Hoplin-Nest-Template',
     description: 'Template codes for Nest.js',

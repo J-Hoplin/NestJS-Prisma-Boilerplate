@@ -11,6 +11,7 @@ import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
  */
 export class PaginationQuery {
   @ApiProperty({
+    default: 1,
     description: 'Default value & minimum is 1',
     required: false,
   })
@@ -20,6 +21,7 @@ export class PaginationQuery {
   page: number = 1;
 
   @ApiProperty({
+    default: 10,
     description: 'Default value is 10 Minimum is 1',
     required: false,
   })
@@ -31,6 +33,7 @@ export class PaginationQuery {
   @ApiProperty({
     required: false,
     enum: Prisma.SortOrder,
+    default: Prisma.SortOrder.desc,
     description: 'Order to sort datas',
   })
   @IsEnum(Prisma.SortOrder)
