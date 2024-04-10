@@ -12,12 +12,12 @@ import { RouterModule } from '@nestjs/core';
         path: 'auth',
         children: [
           {
-            path: 'admin',
-            module: AdminAuthenticationModule,
-          },
-          {
             path: 'user',
             module: UserAuthenticationModule,
+          },
+          {
+            path: 'admin',
+            module: AdminAuthenticationModule,
           },
         ],
       },

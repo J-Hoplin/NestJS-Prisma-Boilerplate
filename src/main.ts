@@ -4,7 +4,9 @@ import { AppModule } from './app.module';
 import { nestSwaggerConfig } from './app.swgger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
 
   nestAppConfig(app);
   nestSwaggerConfig(app, {

@@ -10,6 +10,7 @@ export function nestAppConfig(app: INestApplication) {
   app.enableCors({
     origin: '*',
   });
+
   // Get reflector
   const reflector = app.get<Reflector>(Reflector);
 
