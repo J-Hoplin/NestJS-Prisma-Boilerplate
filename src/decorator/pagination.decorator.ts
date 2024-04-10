@@ -42,7 +42,7 @@ export class PaginationQuery {
   @IsOptional()
   order: Prisma.SortOrder;
 
-  // Will be transformed to {skip:number, take:number}
+  // Will be transformed to {skip:number, take:number}. Depends on ValidationPipe transform property
   @Expose()
   prismaPagination(): { skip: number; take: number } {
     return {
