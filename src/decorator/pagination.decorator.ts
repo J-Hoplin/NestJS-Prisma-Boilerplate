@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 
 /**
@@ -15,6 +15,7 @@ export class PaginationQuery {
     description: 'Default value & minimum is 1',
     required: false,
   })
+  @Type(() => Number)
   @IsOptional()
   @IsNumber()
   @Min(1)
@@ -25,6 +26,7 @@ export class PaginationQuery {
     description: 'Default value is 10 Minimum is 1',
     required: false,
   })
+  @Type(() => Number)
   @IsOptional()
   @IsNumber()
   @Min(1)
@@ -39,6 +41,15 @@ export class PaginationQuery {
   @IsEnum(Prisma.SortOrder)
   @IsOptional()
   order: Prisma.SortOrder;
+
+  // Will be transformed to {skip:number, take:number}
+  @Expose()
+  prismaPagination(): { skip: number; take: number } {
+    return {
+      skip: (this.page - 1) * this.limit,
+      take: this.limit,
+    };
+  }
 }
 
 // Pagination metadata response type for GET list APIs
