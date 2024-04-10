@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Prisma } from '@prisma/client';
 import { Exclude, Expose } from 'class-transformer';
-import { IsNumber, IsOptional, Min } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 
 /**
  * DTO for pagination
@@ -10,6 +11,7 @@ import { IsNumber, IsOptional, Min } from 'class-validator';
  */
 export class PaginationQuery {
   @ApiProperty({
+    description: 'Default value & minimum is 1',
     required: false,
   })
   @IsOptional()
@@ -18,12 +20,22 @@ export class PaginationQuery {
   page: number = 1;
 
   @ApiProperty({
+    description: 'Default value is 10 Minimum is 1',
     required: false,
   })
   @IsOptional()
   @IsNumber()
   @Min(1)
   limit: number = 10;
+
+  @ApiProperty({
+    required: false,
+    enum: Prisma.SortOrder,
+    description: 'Order to sort datas',
+  })
+  @IsEnum(Prisma.SortOrder)
+  @IsOptional()
+  order: Prisma.SortOrder;
 }
 
 // Pagination metadata response type for GET list APIs
@@ -45,37 +57,43 @@ export class PaginateMetadata {
 
   @ApiProperty()
   @Expose()
-  get total() {
+  get total(): number {
     return this._total;
   }
 
   @ApiProperty()
   @Expose()
-  get perPage() {
+  get hasNext(): boolean {
+    return Boolean(this.nextpage);
+  }
+
+  @ApiProperty()
+  @Expose()
+  get perPage(): number {
     return this._limit;
   }
 
   @ApiProperty()
   @Expose()
-  get lastPage() {
+  get lastPage(): number {
     return Math.ceil(this._total / this._limit);
   }
 
   @ApiProperty()
   @Expose()
-  get currentPage() {
+  get currentPage(): number {
     return this._page;
   }
 
   @ApiProperty()
   @Expose()
-  get prevPage() {
+  get prevPage(): number | null {
     return this._page > 1 ? this._page - 1 : null;
   }
 
   @ApiProperty()
   @Expose()
-  get nextpage() {
+  get nextpage(): number | null {
     return this.currentPage < this.lastPage ? this.currentPage + 1 : null;
   }
 }
