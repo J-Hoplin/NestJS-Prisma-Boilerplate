@@ -3,23 +3,31 @@ import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserV1SignupDto {
-  @ApiProperty()
+  @ApiProperty({
+    example: 'Junho',
+  })
   @IsString()
   @IsNotEmpty()
   readonly firstName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'Yoon',
+  })
   @IsString()
   @IsNotEmpty()
   readonly lastName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'hoplin.dev@gmail.com',
+  })
   @Transform(({ value }) => (value as string).toLowerCase())
   @IsEmail()
   @IsNotEmpty()
   readonly email: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'password1234!',
+  })
   @IsString()
   @IsNotEmpty()
   readonly password: string;
