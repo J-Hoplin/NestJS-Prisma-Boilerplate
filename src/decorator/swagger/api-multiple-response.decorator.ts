@@ -1,20 +1,12 @@
-import { Type, HttpStatus, applyDecorators } from '@nestjs/common';
+import { HttpStatus, applyDecorators } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import { MultipleResponseOptions } from './type';
 
 /**
  * For swagger response definition
  *
  * Define for multiple response
  */
-
-interface ResponseReference {
-  classRef: Type;
-  example: any;
-  isArray?: boolean;
-  description?: string;
-}
-
-export type MultipleResponseOptions = Record<string, ResponseReference>;
 
 // Use when Swagger requires to show multiple response
 export const ApiMultipleResponse = (
