@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { UserAuthV1Service } from './user.service';
 
 @Controller({
@@ -7,6 +7,9 @@ import { UserAuthV1Service } from './user.service';
 export class UserAuthV1Controller {
   constructor(private readonly service: UserAuthV1Service) {}
 
-  @Get('/')
-  get() {}
+  @Post('/signup')
+  signup() {}
+
+  @Post('/signin')
+  signin() {}
 }
