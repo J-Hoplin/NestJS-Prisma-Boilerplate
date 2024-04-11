@@ -10,8 +10,17 @@ export function nestAppConfig(app: INestApplication) {
   app.enableCors({
     origin: '*',
   });
+
   // Get reflector
   const reflector = app.get<Reflector>(Reflector);
+
+  // Use class validator
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
   // Use class transformer serializer
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));

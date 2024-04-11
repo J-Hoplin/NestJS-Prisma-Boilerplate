@@ -7,6 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "db:up": "docker-compose -f ./deployments/database/docker-compose.yaml up -d",
+    "db:migrate": "npx prisma migrate --name $1",
+    "db:generate": "npx prisma generate",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -25,8 +27,10 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.3.1",
+    "@prisma/client": "^5.12.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "prisma": "^5.12.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
