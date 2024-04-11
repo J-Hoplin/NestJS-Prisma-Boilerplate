@@ -18,6 +18,11 @@ enum UserRole {
   USER
 }
 
+enum SignupType {
+  LOCAL
+  GOOGLE
+}
+
 model User{
   id String @id @default(uuid()) 
   firstName String @map("first_name")
@@ -25,6 +30,7 @@ model User{
   email String @unique
   password String @db.VarChar(80)
   role UserRole @default(USER)
+  signupType SignupType @map("sign_up_type")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt
