@@ -12,18 +12,18 @@ import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 export class PaginationQuery {
   @ApiProperty({
     default: 1,
-    description: 'Default value & minimum is 1',
+    description: 'Default value & Starting from 0',
     required: false,
   })
   @Type(() => Number)
   @IsOptional()
   @IsNumber()
-  @Min(1)
-  page: number = 1;
+  @Min(0)
+  page: number = 0;
 
   @ApiProperty({
     default: 10,
-    description: 'Default value is 10 Minimum is 1',
+    description: 'Default value is 10 Starting from 1',
     required: false,
   })
   @Type(() => Number)
@@ -40,16 +40,7 @@ export class PaginationQuery {
   })
   @IsEnum(Prisma.SortOrder)
   @IsOptional()
-  order: Prisma.SortOrder;
-
-  // Will be transformed to {skip:number, take:number}. Depends on ValidationPipe transform property
-  @Expose()
-  prismaPagination(): { skip: number; take: number } {
-    return {
-      skip: (this.page - 1) * this.limit,
-      take: this.limit,
-    };
-  }
+  order: Prisma.SortOrder = Prisma.SortOrder.desc;
 }
 
 // Pagination metadata response type for GET list APIs
