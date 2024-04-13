@@ -9,6 +9,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { LoggerModule } from './logger/logger.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     PrismaModule,
     AuthenticationModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

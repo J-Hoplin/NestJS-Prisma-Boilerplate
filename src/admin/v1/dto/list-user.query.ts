@@ -15,7 +15,7 @@ export class AdminV1ListUserQuery extends PaginationQuery {
   })
   @IsString()
   @IsOptional()
-  search: string = '';
+  readonly search: string = '';
 
   @ApiProperty({
     required: false,
@@ -24,5 +24,5 @@ export class AdminV1ListUserQuery extends PaginationQuery {
   })
   @IsEnum(ListUserCategory)
   @IsOptional()
-  searchCategory: ListUserCategory;
+  readonly searchCategory: ListUserCategory;
 }
