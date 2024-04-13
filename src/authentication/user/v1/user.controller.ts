@@ -1,12 +1,17 @@
+// Nest Packages
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { UserAuthV1Service } from './user.service';
-import { UserV1SigninDto, UserV1SignupDto } from './dto';
-import { UserAuthV1SigninDocs, UserAuthV1SignupDocs } from './docs';
 import { ApiTags } from '@nestjs/swagger';
+
+// Custom Packages
+import { AllowPublic } from '@app/decorator';
+import { UserAuthV1SigninDocs, UserAuthV1SignupDocs } from './docs';
+import { UserV1SigninDto, UserV1SignupDto } from './dto';
+import { UserAuthV1Service } from './user.service';
 
 @Controller({
   version: '1',
 })
+@AllowPublic()
 @ApiTags('User Auth API - V1')
 export class UserAuthV1Controller {
   constructor(private readonly service: UserAuthV1Service) {}

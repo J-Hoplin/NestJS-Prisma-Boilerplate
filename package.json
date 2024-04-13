@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "db:up": "docker-compose -f ./deployments/database/docker-compose.yaml up -d",
+    "db:dev:push": "npx prisma db push",
     "db:migrate": "npx prisma migrate --name $1",
     "db:generate": "npx prisma generate",
     "build": "nest build",

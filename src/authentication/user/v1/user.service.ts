@@ -1,17 +1,22 @@
+// Nest Packages
 import {
-  BadRequestException,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UserAuthV1Repository } from './user.repository';
-import { UserV1SigninDto, UserV1SignupDto } from './dto';
-import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from '@app/types';
 import { ConfigService } from '@nestjs/config';
-import * as bcrypt from 'bcryptjs';
-import { PrismaService } from '@app/prisma/prisma.service';
-import { TokenAuthResponse } from './response';
+import { JwtService } from '@nestjs/jwt';
+
+// Third-party Packages
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import * as bcrypt from 'bcryptjs';
+
+// Custom Packages
+import { PrismaService } from '@app/prisma/prisma.service';
+import { JwtPayload } from '@app/types';
+import { UserV1SigninDto, UserV1SignupDto } from './dto';
+import { TokenAuthResponse } from './response';
+import { UserAuthV1Repository } from './user.repository';
 
 @Injectable()
 export class UserAuthV1Service {
@@ -44,7 +49,7 @@ export class UserAuthV1Service {
       // Prisma Unique constraint
       if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === 'P2002') {
-          throw new BadRequestException('Credential already taken');
+          throw new ForbiddenException('Credential already taken');
         }
       }
       // Else

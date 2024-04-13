@@ -1,3 +1,4 @@
+// Nest Packages
 import {
   ClassSerializerInterceptor,
   INestApplication,
@@ -6,6 +7,9 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
+// Custom Packages
+import { LocalGuard } from './authentication/guard/local.guard';
+
 export function nestAppConfig(app: INestApplication) {
   app.enableCors({
     origin: '*',
@@ -13,6 +17,9 @@ export function nestAppConfig(app: INestApplication) {
 
   // Get reflector
   const reflector = app.get<Reflector>(Reflector);
+
+  // Use global guard
+  app.useGlobalGuards(new LocalGuard(reflector));
 
   // Use class validator
   app.useGlobalPipes(

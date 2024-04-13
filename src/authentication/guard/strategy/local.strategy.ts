@@ -1,9 +1,14 @@
-import { PrismaService } from '@app/prisma/prisma.service';
-import { JwtPayload, UserPayload } from '@app/types';
+// Nest Packages
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
+
+// Third-party Packages
 import { ExtractJwt, Strategy } from 'passport-jwt';
+
+// Custom Packages
+import { PrismaService } from '@app/prisma/prisma.service';
+import { JwtPayload, UserPayload } from '@app/types';
 import { LOCAL } from './stretegy.token';
 
 @Injectable()

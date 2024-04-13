@@ -1,3 +1,4 @@
+// Nest Packages
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -5,6 +6,8 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+
+// Custom Packages
 import { TokenAuthResponse } from '../response';
 
 export const UserAuthV1SignupDocs = applyDecorators(
