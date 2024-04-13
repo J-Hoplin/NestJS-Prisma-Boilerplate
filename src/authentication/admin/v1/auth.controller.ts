@@ -1,15 +1,27 @@
 // Nest Packages
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 // Custom Packages
+import { RoleGuard } from '@app/authorization/guard/roles.guard';
+import { AllowRole } from '@app/decorator/role/roles.decorator';
 import { AdminAuthV1Service } from './auth.service';
+import { AdminV1ListUserDocs } from './docs';
+import { AdminV1ListUserQuery } from './dto';
 
 @Controller({
   version: '1',
 })
+@UseGuards(RoleGuard)
+@AllowRole(['ADMIN'])
+@ApiBearerAuth()
 export class AdminAuthV1Controller {
   constructor(private readonly authService: AdminAuthV1Service) {}
 
-  @Get('/')
-  get() {}
+  @Get('/users')
+  @AllowRole(['MAINTAINER'])
+  @AdminV1ListUserDocs
+  listUsers(@Query() query: AdminV1ListUserQuery) {
+    return this.authService.listUser(query);
+  }
 }

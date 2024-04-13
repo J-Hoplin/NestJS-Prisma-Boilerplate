@@ -23,6 +23,7 @@ export class UserAuthV1Controller {
     return this.service.signup(dto);
   }
 
+  @Post('/signin')
   @UserAuthV1SigninDocs
   @HttpCode(HttpStatus.OK)
   signin(@Body() dto: UserV1SigninDto) {

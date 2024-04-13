@@ -15,14 +15,14 @@ import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 export class PaginationQuery {
   @ApiProperty({
     default: 1,
-    description: 'Default value & Starting from 0',
+    description: 'Default value & Starting from 1',
     required: false,
   })
   @Type(() => Number)
   @IsOptional()
   @IsNumber()
-  @Min(0)
-  page: number = 0;
+  @Min(1)
+  page: number = 1;
 
   @ApiProperty({
     default: 10,
