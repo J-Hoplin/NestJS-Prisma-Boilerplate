@@ -15,10 +15,9 @@ interface ISwaggerConfig {
   version?: string;
 }
 
-export function nestSwaggerConfig(
-  app: INestApplication,
-  option: ISwaggerConfig,
-) {
+export function nestSwaggerConfig<
+  T extends INestApplication = INestApplication,
+>(app: T, option: ISwaggerConfig) {
   const config = new DocumentBuilder();
   config.setTitle(option.title);
   // Description

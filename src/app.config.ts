@@ -7,10 +7,43 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
+// Third-party Packges
+import * as bcrypt from 'bcryptjs';
+
 // Custom Packages
 import { LocalGuard } from './authentication/guard/local.guard';
+import { PrismaService } from './prisma/prisma.service';
 
-export function nestAppConfig(app: INestApplication) {
+// Warning: Do not user this in production
+export async function initializeAdminAccount<
+  T extends INestApplication = INestApplication,
+>(app: T) {
+  const adminEmail = 'admin@admin.com';
+  const adminPW = await bcrypt.hash('admin', 10);
+
+  // Create or Update admin user
+  const prisma = app.get<PrismaService>(PrismaService);
+  await prisma.user.upsert({
+    where: {
+      email: adminEmail,
+    },
+    update: {
+      role: 'ADMIN',
+    },
+    create: {
+      email: adminEmail,
+      password: adminPW,
+      role: 'ADMIN',
+      firstName: 'Admin',
+      lastName: 'Admin',
+      signupType: 'LOCAL',
+    },
+  });
+}
+
+export function nestAppConfig<T extends INestApplication = INestApplication>(
+  app: T,
+) {
   app.enableCors({
     origin: '*',
   });
