@@ -22,7 +22,7 @@ export class PaginationQuery {
   @IsOptional()
   @IsNumber()
   @Min(1)
-  page: number = 1;
+  readonly page: number = 1;
 
   @ApiProperty({
     default: 10,
@@ -33,7 +33,7 @@ export class PaginationQuery {
   @IsOptional()
   @IsNumber()
   @Min(1)
-  limit: number = 10;
+  readonly limit: number = 10;
 
   @ApiProperty({
     required: false,
@@ -43,7 +43,7 @@ export class PaginationQuery {
   })
   @IsEnum(Prisma.SortOrder)
   @IsOptional()
-  order: Prisma.SortOrder = Prisma.SortOrder.desc;
+  readonly order: Prisma.SortOrder = Prisma.SortOrder.desc;
 }
 
 // Pagination metadata response type for GET list APIs

@@ -11,7 +11,7 @@ import { AdminV1ListUserResponse } from './response';
 import { PaginateMetadata } from '@app/decorator';
 
 @Injectable()
-export class AdminAuthV1Service {
+export class AdminV1Service {
   constructor(private readonly prisma: PrismaService) {}
 
   async listUser(query: AdminV1ListUserQuery) {

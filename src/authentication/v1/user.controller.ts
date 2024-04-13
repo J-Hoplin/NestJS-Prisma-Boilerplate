@@ -10,9 +10,10 @@ import { UserAuthV1Service } from './user.service';
 
 @Controller({
   version: '1',
+  path: 'auth',
 })
 @AllowPublic()
-@ApiTags('User Auth API - V1')
+@ApiTags('Auth API - V1')
 export class UserAuthV1Controller {
   constructor(private readonly service: UserAuthV1Service) {}
 
