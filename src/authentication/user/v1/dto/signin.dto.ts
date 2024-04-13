@@ -1,4 +1,7 @@
+// Nest Packages
 import { ApiProperty } from '@nestjs/swagger';
+
+// Third-party Packages
 import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 

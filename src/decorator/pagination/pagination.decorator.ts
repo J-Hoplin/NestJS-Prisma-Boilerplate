@@ -1,4 +1,7 @@
+// Nest Packages
 import { ApiProperty } from '@nestjs/swagger';
+
+// Third-party Packages
 import { Prisma } from '@prisma/client';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';

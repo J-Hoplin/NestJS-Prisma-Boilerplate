@@ -1,7 +1,12 @@
+// Nest Packages
 import { Injectable, NestMiddleware } from '@nestjs/common';
+
+// Third-party Packages
 import { Request, Response, NextFunction } from 'express';
-import { GlobalLogger } from './logger.service';
 import * as process from 'process';
+
+// Custom Packages
+import { GlobalLogger } from './logger.service';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {

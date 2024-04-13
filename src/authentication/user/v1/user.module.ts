@@ -1,9 +1,12 @@
+// Nest Pacakges
 import { Module } from '@nestjs/common';
-import { UserAuthV1Repository } from './user.repository';
-import { UserAuthV1Service } from './user.service';
-import { UserAuthV1Controller } from './user.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+
+// Custom Pacakges
+import { UserAuthV1Controller } from './user.controller';
+import { UserAuthV1Repository } from './user.repository';
+import { UserAuthV1Service } from './user.service';
 
 @Module({
   imports: [

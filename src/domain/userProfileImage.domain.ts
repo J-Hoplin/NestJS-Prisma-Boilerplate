@@ -1,3 +1,4 @@
+// Third-party Packages
 import { UserProfileImage } from '@prisma/client';
 
 export class UserProfileImageDomain implements UserProfileImage {
