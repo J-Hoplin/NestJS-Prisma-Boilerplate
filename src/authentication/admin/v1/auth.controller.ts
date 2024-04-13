@@ -9,6 +9,7 @@ import { AdminAuthV1Service } from './auth.service';
 import { AdminV1ListUserDocs } from './docs';
 import { AdminV1ListUserQuery } from './dto';
 
+// This API is for only example. This API will be moved to `User` module in near future
 @Controller({
   version: '1',
 })
