@@ -1,7 +1,11 @@
+// Nest Packages
 import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
+
+// Custom Pacakges
 import { AdminAuthV1Module } from './admin/v1/admin.module';
 import { UserAuthV1Module } from './user/v1/user.module';
+import { LocalStrategy } from './guard/strategy/local.strategy';
 
 @Module({
   imports: [
@@ -23,5 +27,6 @@ import { UserAuthV1Module } from './user/v1/user.module';
       },
     ]),
   ],
+  providers: [LocalStrategy],
 })
 export class AuthenticationModule {}

@@ -5,6 +5,7 @@ import {
   VersioningType,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { LocalGuard } from './authentication/guard/local.guard';
 
 export function nestAppConfig(app: INestApplication) {
   app.enableCors({
@@ -13,6 +14,9 @@ export function nestAppConfig(app: INestApplication) {
 
   // Get reflector
   const reflector = app.get<Reflector>(Reflector);
+
+  // Use global guard
+  app.useGlobalGuards(new LocalGuard(reflector));
 
   // Use class validator
   app.useGlobalPipes(

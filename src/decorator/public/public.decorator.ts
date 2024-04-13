@@ -5,7 +5,8 @@
  *
  */
 
+// Nest Packages
 import { SetMetadata } from '@nestjs/common';
 
 export const AllowPublicToken = 'allow-public';
-export const AllowPublic = SetMetadata(AllowPublicToken, true);
+export const AllowPublic = () => SetMetadata(AllowPublicToken, true);
