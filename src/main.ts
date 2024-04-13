@@ -2,7 +2,7 @@
 import { NestFactory } from '@nestjs/core';
 
 // Custom Packages
-import { nestAppConfig } from './app.config';
+import { initializeAdminAccount, nestAppConfig } from './app.config';
 import { AppModule } from './app.module';
 import { nestSwaggerConfig } from './app.swgger';
 
@@ -10,6 +10,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
+
+  // Admin account init
+  // Warning: Do not user this in production
+  initializeAdminAccount(app);
 
   // Nest application setting
   nestAppConfig(app);
