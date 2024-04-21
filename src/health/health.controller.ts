@@ -1,11 +1,11 @@
 // Nest Packages
 import { Controller, Get } from '@nestjs/common';
 import { HealthCheck } from '@nestjs/terminus';
+import { ApiTags } from '@nestjs/swagger';
 
 // Custom Packages
 import { HealthService } from './health.service';
 import { AllowPublic } from '@app/decorator';
-import { ApiTags } from '@nestjs/swagger';
 
 @Controller('health')
 @AllowPublic()
