@@ -31,6 +31,7 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.3.1",
+    "@nestjs/terminus": "^10.2.3",
     "@prisma/client": "^5.12.1",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
