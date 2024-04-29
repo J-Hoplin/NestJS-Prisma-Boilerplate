@@ -1,14 +1,16 @@
 // Nest Packages
-import { Controller, Get } from '@nestjs/common';
-import { HealthCheck } from '@nestjs/terminus';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { HealthCheck } from '@nestjs/terminus';
 
 // Custom Packages
+import { RoleGuard } from '@app/authorization/guard/roles.guard';
 import { HealthService } from './health.service';
-import { AllowPublic } from '@app/decorator';
+import { AllowRole } from '@app/decorator';
 
 @Controller('health')
-@AllowPublic()
+@UseGuards(RoleGuard)
+@AllowRole(['ADMIN'])
 @ApiTags('System Health')
 export class HealthController {
   constructor(private service: HealthService) {}
