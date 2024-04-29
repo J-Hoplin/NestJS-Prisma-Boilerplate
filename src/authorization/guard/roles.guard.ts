@@ -6,7 +6,7 @@ import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 
 // Custom Pacakges
-import { AllowRole } from '@app/decorator/role/roles.decorator';
+import { AllowRole } from '@app/common/decorator/role/roles.decorator';
 import { UserPayload } from '@app/types';
 
 @Injectable()

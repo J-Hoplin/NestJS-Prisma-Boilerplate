@@ -4,7 +4,7 @@ import { ApiProperty, PickType } from '@nestjs/swagger';
 // Third-party Packages
 
 // Custom Pacakges
-import { PaginateMetadata } from '@app/decorator';
+import { PaginateMetadata } from '@app/common/decorator';
 import { UserDomain } from '@app/domain';
 
 export class AdminV1ListUserItem extends PickType(UserDomain, [

@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 // Custom Packages
-import { PaginationQuery } from '@app/decorator';
+import { PaginationQuery } from '@app/common/decorator';
 
 export class ExampleQuery extends PaginationQuery {
   @ApiProperty()

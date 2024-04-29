@@ -6,7 +6,7 @@ import { HealthCheck } from '@nestjs/terminus';
 // Custom Packages
 import { RoleGuard } from '@app/authorization/guard/roles.guard';
 import { HealthService } from './health.service';
-import { AllowRole } from '@app/decorator';
+import { AllowRole } from '@app/common/decorator';
 
 @Controller('health')
 @UseGuards(RoleGuard)

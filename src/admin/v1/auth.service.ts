@@ -8,7 +8,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { AdminV1ListUserQuery, ListUserCategory } from './dto';
 import { AdminV1ListUserResponse } from './response';
-import { PaginateMetadata } from '@app/decorator';
+import { PaginateMetadata } from '@app/common/decorator';
 
 @Injectable()
 export class AdminV1Service {

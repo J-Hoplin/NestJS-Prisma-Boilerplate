@@ -7,7 +7,7 @@ import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 // Custom Packages
-import { AllowPublicToken } from '@app/decorator/public/public.decorator';
+import { AllowPublicToken } from '@app/common/decorator/public/public.decorator';
 import { LOCAL } from './strategy/stretegy.token';
 
 @Injectable()
