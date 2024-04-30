@@ -1,10 +1,9 @@
 // Nest Packages
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import { ExecutionContext, Injectable } from '@nestjs/common';
 
 // Third-party Packages
-import { Observable } from 'rxjs';
 
 // Custom Packages
 import { AllowPublicToken } from '@app/common/decorator/public/public.decorator';
@@ -16,9 +15,7 @@ export class LocalGuard extends AuthGuard(LOCAL) {
     super();
   }
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext) {
     const isPublic = this.reflector.getAllAndMerge(AllowPublicToken, [
       context.getClass(),
       context.getHandler(),
@@ -29,9 +26,15 @@ export class LocalGuard extends AuthGuard(LOCAL) {
      *
      * If set, it will return an boolean true
      */
+
+    // Return true if metadata allow public
     if (typeof isPublic === 'boolean' && isPublic) {
-      return true;
+      try {
+        return (await super.canActivate(context)) as boolean;
+      } catch (err) {
+        return true;
+      }
     }
-    return super.canActivate(context);
+    return (await super.canActivate(context)) as boolean;
   }
 }
