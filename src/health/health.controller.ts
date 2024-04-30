@@ -3,10 +3,10 @@ import { Controller, Get, UseGuards } from '@nestjs/common';
 import { HealthCheck } from '@nestjs/terminus';
 
 // Custom Packages
-import { RoleGuard } from '@app/authorization/guard/roles.guard';
 import { AllowRole } from '@app/common/decorator';
 import { HealthV1ControllerDocs } from './docs';
 import { HealthService } from './health.service';
+import { RoleGuard } from '@app/common/guard';
 
 @Controller('health')
 @UseGuards(RoleGuard)
