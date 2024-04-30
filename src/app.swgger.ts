@@ -44,5 +44,8 @@ export function nestSwaggerConfig<
   const document = SwaggerModule.createDocument(app, config.build());
   SwaggerModule.setup('docs', app, document, {
     explorer: true,
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
   });
 }
