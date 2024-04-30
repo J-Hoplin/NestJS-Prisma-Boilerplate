@@ -3,7 +3,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 // Custom Packages
-import { AllowPublic } from '@app/decorator';
+import { AllowPublic } from '@app/common/decorator';
 import { UserAuthV1SigninDocs, UserAuthV1SignupDocs } from './docs';
 import { UserV1SigninDto, UserV1SignupDto } from './dto';
 import { UserAuthV1Service } from './user.service';

@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@app/*": ["src/*"],
-      "@decorator/*": ["src/decorator/*"],
+      "@decorator/*": ["src/common/decorator/*"],
       "@prisma/*": ["src/prisma/*"]
     }
   }

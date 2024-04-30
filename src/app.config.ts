@@ -13,6 +13,7 @@ import * as bcrypt from 'bcryptjs';
 // Custom Packages
 import { LocalGuard } from './authentication/guard/local.guard';
 import { PrismaService } from './prisma/prisma.service';
+import { CommonResponseInterceptor } from './common/interceptors';
 
 // Warning: Do not user this in production
 export async function initializeAdminAccount<
@@ -62,8 +63,10 @@ export function nestAppConfig<T extends INestApplication = INestApplication>(
     }),
   );
 
-  // Use class transformer serializer
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+  app.useGlobalInterceptors(
+    new ClassSerializerInterceptor(reflector), // Class-Serializer Interceptor
+    new CommonResponseInterceptor(), // Response Payload Interceptor
+  );
 
   // Enable versioning as URI
   app.enableVersioning({

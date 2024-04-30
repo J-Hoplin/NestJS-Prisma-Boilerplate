@@ -3,7 +3,7 @@ import { Controller, Get } from '@nestjs/common';
 
 // Custom Packages
 import { AppService } from './app.service';
-import { AllowPublic } from './decorator';
+import { AllowPublic } from './common/decorator';
 
 @Controller()
 @AllowPublic()
