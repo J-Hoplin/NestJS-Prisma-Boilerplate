@@ -1,19 +1,31 @@
 // Nest Packages
-import { ApiProperty, PickType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 // Third-party Packages
 
 // Custom Pacakges
 import { PaginateMetadata } from '@app/common/decorator';
-import { UserDomain } from '@app/domain';
 
-export class AdminV1ListUserItem extends PickType(UserDomain, [
-  'id',
-  'firstName',
-  'lastName',
-  'email',
-  'createdAt',
-]) {}
+export class AdminV1ListUserItem {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  firstName: string;
+
+  @ApiProperty()
+  lastName: string;
+
+  @ApiProperty()
+  email: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  constructor(data: AdminV1ListUserItem) {
+    Object.assign(this, data);
+  }
+}
 
 export class AdminV1ListUserResponse {
   @ApiProperty({

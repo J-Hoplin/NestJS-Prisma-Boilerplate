@@ -1,8 +1,18 @@
 ## TODO Left
 
+### Start
+
+```bash
+yarn install
+
+yarn prepare
+
+yarn start
+```
+
 ### Application
 
-- [ ] Nest.js Terminus integration
+- [x] Nest.js Terminus integration
 - [ ] Common library(Nest.js library)
   - [ ] S3
   - [ ] SQS
