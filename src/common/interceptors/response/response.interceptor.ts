@@ -12,7 +12,7 @@ export class CommonResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((payload = {}) => {
         return {
-          message: true,
+          success: true,
           data: payload,
         };
       }),
