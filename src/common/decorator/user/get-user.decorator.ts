@@ -1,5 +1,5 @@
 // Nest Packages
-import { UserPayload } from '@app/types';
+import { UserPayload } from '@app/common/types';
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
 // Third-party Packages

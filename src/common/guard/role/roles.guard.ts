@@ -7,7 +7,7 @@ import { Request } from 'express';
 
 // Custom Pacakges
 import { AllowRole } from '@app/common/decorator/role/roles.decorator';
-import { UserPayload } from '@app/types';
+import { UserPayload } from '@app/common/types';
 
 @Injectable()
 export class RoleGuard implements CanActivate {

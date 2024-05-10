@@ -12,8 +12,8 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import * as bcrypt from 'bcryptjs';
 
 // Custom Packages
+import { JwtPayload } from '@app/common/types';
 import { PrismaService } from '@app/prisma/prisma.service';
-import { JwtPayload } from '@app/types';
 import { UserV1SigninDto, UserV1SignupDto } from './dto';
 import { TokenAuthResponse } from './response';
 import { UserAuthV1Repository } from './user.repository';

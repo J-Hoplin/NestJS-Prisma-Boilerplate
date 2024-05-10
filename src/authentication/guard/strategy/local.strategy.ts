@@ -7,8 +7,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 // Custom Packages
+import { JwtPayload, UserPayload } from '@app/common/types';
 import { PrismaService } from '@app/prisma/prisma.service';
-import { JwtPayload, UserPayload } from '@app/types';
 import { LOCAL } from './stretegy.token';
 
 @Injectable()
