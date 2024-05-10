@@ -7,7 +7,8 @@ import { Request } from 'express';
 
 // Custom Pacakges
 import { AllowRole } from '@app/common/decorator/role/roles.decorator';
-import { UserPayload } from '@app/types';
+import { RoleAuthorizationFailedException } from '@app/common/error';
+import { UserPayload } from '@app/common/types';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -24,7 +25,7 @@ export class RoleGuard implements CanActivate {
 
     // If user role not in allowed role
     if (!allowedRole.includes(user.role)) {
-      return false;
+      throw new RoleAuthorizationFailedException();
     }
 
     return true;

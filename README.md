@@ -17,9 +17,9 @@ yarn start
   - [ ] S3
   - [ ] SQS
   - [ ] Localstack
-- [ ] Global Exception Filter
-  - [ ] Error code definition
-- [ ] Global Response Interceptor
+- [x] Global Exception Filter
+  - [x] Error code definition
+- [x] Global Response Interceptor
 
 ### Test code
 
