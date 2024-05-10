@@ -1,2 +1,2 @@
-export * from './exception.abstract';
+export * from './root.exception';
 export * from './type';
