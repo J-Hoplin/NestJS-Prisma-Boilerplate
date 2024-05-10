@@ -12,8 +12,9 @@ import * as bcrypt from 'bcryptjs';
 
 // Custom Packages
 import { LocalGuard } from './authentication/guard/local.guard';
-import { PrismaService } from './prisma/prisma.service';
+import { RootExceptionFilter } from './common/filter';
 import { CommonResponseInterceptor } from './common/interceptors';
+import { PrismaService } from './prisma/prisma.service';
 
 // Warning: Do not user this in production
 export async function initializeAdminAccount<
@@ -80,6 +81,9 @@ export function nestAppConfig<T extends INestApplication = INestApplication>(
       whitelist: true,
     }),
   );
+
+  // Exception Filter
+  app.useGlobalFilters(new RootExceptionFilter());
 
   // Set class-transformer global serializer interceptor
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));

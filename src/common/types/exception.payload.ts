@@ -7,5 +7,5 @@
 
 export type ExceptionPayload = {
   code?: string;
-  message: string;
+  message: string | object;
 };
