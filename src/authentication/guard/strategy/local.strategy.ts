@@ -1,5 +1,5 @@
 // Nest Packages
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 
@@ -7,6 +7,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 // Custom Packages
+import { AuthenticationFailedException } from '@app/common';
 import { JwtPayload, UserPayload } from '@app/common/types';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { LOCAL } from './stretegy.token';
@@ -39,7 +40,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, LOCAL) {
 
     // If user not validated, throw 401 Unauthroized Exception
     if (!findUser) {
-      throw new UnauthorizedException('Invalid user');
+      throw new AuthenticationFailedException();
     }
 
     // Return payload for user

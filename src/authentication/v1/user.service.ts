@@ -1,9 +1,5 @@
 // Nest Packages
-import {
-  ForbiddenException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -15,6 +11,10 @@ import * as bcrypt from 'bcryptjs';
 import { JwtPayload } from '@app/common/types';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { UserV1SigninDto, UserV1SignupDto } from './dto';
+import {
+  CredentialAlreadyTakenException,
+  InvalidCredentialException,
+} from './exception';
 import { TokenAuthResponse } from './response';
 import { UserAuthV1Repository } from './user.repository';
 
@@ -49,7 +49,7 @@ export class UserAuthV1Service {
       // Prisma Unique constraint
       if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === 'P2002') {
-          throw new ForbiddenException('Credential already taken');
+          throw new CredentialAlreadyTakenException();
         }
       }
       // Else
@@ -68,14 +68,14 @@ export class UserAuthV1Service {
       },
     });
     if (!findUser) {
-      throw new UnauthorizedException('Invalid credential');
+      throw new InvalidCredentialException();
     }
     const passwordValidation = await bcrypt.compare(
       dto.password,
       findUser.password,
     );
     if (!passwordValidation) {
-      throw new UnauthorizedException('Invalid credential');
+      throw new InvalidCredentialException();
     }
     const accessToken = await this.issueToken({ id: findUser.id });
     return new TokenAuthResponse(accessToken);
