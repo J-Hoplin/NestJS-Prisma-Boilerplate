@@ -1,4 +1,5 @@
 // Nest Packages
+import { ICommonResponse } from '@app/common/types';
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 
 // Custom Packages
@@ -10,9 +11,10 @@ export class CommonResponseInterceptor implements NestInterceptor {
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
     return next.handle().pipe(
-      map((payload = {}) => {
+      map((payload = {}): ICommonResponse => {
         return {
           success: true,
+          error: null,
           data: payload,
         };
       }),

@@ -4,5 +4,6 @@
  */
 export interface ICommonResponse {
   success: boolean;
+  error: any;
   data: any;
 }
