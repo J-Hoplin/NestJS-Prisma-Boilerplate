@@ -1,1 +1,1 @@
-export * from './auth.exception';
+export * from './global.exception';
