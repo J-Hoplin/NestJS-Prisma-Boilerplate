@@ -6,7 +6,7 @@ import { Prisma, User } from '@prisma/client';
 
 // Custom Packages
 import { ListUserCategory } from '@app/admin/v1/dto';
-import { AdminV1Repository } from '@app/admin/v1/repository/admin.repository';
+import type { AdminV1Repository } from '@app/admin/v1/repository/admin.repository';
 import { PrismaService } from '@app/prisma/prisma.service';
 
 @Injectable()

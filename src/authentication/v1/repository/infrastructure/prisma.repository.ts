@@ -7,7 +7,7 @@ import { $Enums } from '@prisma/client';
 // Custom Packages
 import { PrismaService } from '@app/prisma/prisma.service';
 import { UserV1SigninDto, UserV1SignupDto } from '../../dto';
-import { AuthV1Repository } from '../auth.repository';
+import type { AuthV1Repository } from '../auth.repository';
 
 @Injectable()
 export class AuthPrismaRepository implements AuthV1Repository {
