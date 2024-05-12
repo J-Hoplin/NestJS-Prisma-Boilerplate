@@ -2,9 +2,9 @@
 import { Module } from '@nestjs/common';
 
 // Custom Pacakges
-import { AdminV1Controller } from './auth.controller';
+import { AdminV1Controller } from './admin.controller';
 
-import { AdminV1Service } from './auth.service';
+import { AdminV1Service } from './admin.service';
 import { AdminPrismaRepository, AdminV1Repository } from './repository';
 
 @Module({
