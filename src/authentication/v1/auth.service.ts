@@ -9,40 +9,32 @@ import * as bcrypt from 'bcryptjs';
 
 // Custom Packages
 import { JwtPayload } from '@app/common/types';
-import { PrismaService } from '@app/prisma/prisma.service';
 import { UserV1SigninDto, UserV1SignupDto } from './dto';
 import {
   CredentialAlreadyTakenException,
   InvalidCredentialException,
 } from './exception';
+import { AuthV1Repository } from './repository';
 import { TokenAuthResponse } from './response';
-import { UserAuthV1Repository } from './user.repository';
 
 @Injectable()
 export class UserAuthV1Service {
   constructor(
-    private readonly prisma: PrismaService,
-    private readonly repository: UserAuthV1Repository,
+    private readonly repository: AuthV1Repository,
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
   ) {}
 
   async signup(dto: UserV1SignupDto): Promise<TokenAuthResponse> {
     const encryptedPassword = await bcrypt.hash(dto.password, 10);
-    const userCredential = {
-      ...dto,
-      password: encryptedPassword,
-    };
     try {
-      const newUser = await this.prisma.user.create({
-        data: {
-          ...userCredential,
-          signupType: 'LOCAL',
+      const newUser = await this.repository.userSignup(
+        {
+          ...dto,
+          password: encryptedPassword,
         },
-        select: {
-          id: true,
-        },
-      });
+        'LOCAL',
+      );
       const accessToken = await this.issueToken({ id: newUser.id });
       return new TokenAuthResponse(accessToken);
     } catch (err) {
@@ -58,15 +50,7 @@ export class UserAuthV1Service {
   }
 
   async signin(dto: UserV1SigninDto): Promise<TokenAuthResponse> {
-    const findUser = await this.prisma.user.findUnique({
-      where: {
-        email: dto.email,
-      },
-      select: {
-        id: true,
-        password: true,
-      },
-    });
+    const findUser = await this.repository.userSignin(dto);
     if (!findUser) {
       throw new InvalidCredentialException();
     }

@@ -4,9 +4,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
 // Custom Pacakges
-import { UserAuthV1Controller } from './user.controller';
-import { UserAuthV1Repository } from './user.repository';
-import { UserAuthV1Service } from './user.service';
+import { UserAuthV1Controller } from './auth.controller';
+import { UserAuthV1Service } from './auth.service';
+import { AuthPrismaRepository, AuthV1Repository } from './repository';
 
 @Module({
   imports: [
@@ -23,8 +23,14 @@ import { UserAuthV1Service } from './user.service';
       },
     }),
   ],
-  providers: [UserAuthV1Service, UserAuthV1Repository],
+  providers: [
+    UserAuthV1Service,
+    {
+      provide: AuthV1Repository,
+      useClass: AuthPrismaRepository,
+    },
+  ],
   controllers: [UserAuthV1Controller],
-  exports: [UserAuthV1Repository, UserAuthV1Service],
+  exports: [UserAuthV1Service],
 })
 export class UserAuthV1Module {}

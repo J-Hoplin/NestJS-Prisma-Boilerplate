@@ -2,13 +2,20 @@
 import { Module } from '@nestjs/common';
 
 // Custom Pacakges
-import { AdminV1Repository } from './auth.repository';
-import { AdminV1Service } from './auth.service';
 import { AdminV1Controller } from './auth.controller';
+
+import { AdminV1Service } from './auth.service';
+import { AdminPrismaRepository, AdminV1Repository } from './repository';
 
 @Module({
   controllers: [AdminV1Controller],
-  providers: [AdminV1Service, AdminV1Repository],
+  providers: [
+    AdminV1Service,
+    {
+      provide: AdminV1Repository,
+      useClass: AdminPrismaRepository,
+    },
+  ],
   exports: [AdminV1Service, AdminV1Repository],
 })
 export class AdminV1Module {}
