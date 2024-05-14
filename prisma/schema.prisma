@@ -24,13 +24,13 @@ enum SignupType {
   GOOGLE
 }
 
-model User{
-  id String @id @default(uuid()) 
-  firstName String @map("first_name")
-  lastName String @map("last_name")
-  email String @unique
-  password String @db.VarChar(80)
-  role UserRole @default(USER)
+model User {
+  id         String     @id @default(uuid())
+  firstName  String     @map("first_name")
+  lastName   String     @map("last_name")
+  email      String     @unique
+  password   String     @db.VarChar(80)
+  role       UserRole   @default(USER)
   signupType SignupType @map("sign_up_type")
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -42,18 +42,18 @@ model User{
   @@map("user")
 }
 
-model UserProfileImage{
-  id String @id @default(uuid())
-  key String @db.VarChar(50)
-  originalName String @db.Text() @map("original_name")
-  extension String @db.VarChar(10)
-  sizeKB  BigInt @db.BigInt @map("file_size")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt
+model UserProfileImage {
+  id           String   @id @default(uuid())
+  key          String   @db.VarChar(50)
+  originalName String   @map("original_name") @db.Text()
+  extension    String   @db.VarChar(10)
+  sizeKB       BigInt   @map("file_size") @db.BigInt
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt
 
   // Relation: User - UserProfileImage
-  user User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @unique 
+  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
 
   @@map("user_profile_image")
 }
