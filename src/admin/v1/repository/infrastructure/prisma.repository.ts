@@ -50,7 +50,12 @@ export class AdminPrismaRepository implements AdminV1Repository {
       this.prisma.user.findMany({
         skip: (page - 1) * limit,
         take: limit,
-        where: whereQuery,
+        where: {
+          email: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
         orderBy: {
           createdAt: order,
         },
