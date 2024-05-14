@@ -1,8 +1,10 @@
 // Nest Pacakges
 import { Injectable } from '@nestjs/common';
 
-// Custom Packages
+// Third-party Packages
 import { InjectKysely } from 'nestjs-kysely';
+
+// Custom Packages
 import { DB } from './common/database';
 import { PrismaService } from './prisma/prisma.service';
 
@@ -14,7 +16,6 @@ export class AppService {
   ) {}
 
   async getHello() {
-    return await this.db.selectFrom('user').selectAll().execute();
-    return 'Hello World!';
+    return 'Hello World';
   }
 }

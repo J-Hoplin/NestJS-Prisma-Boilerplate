@@ -31,7 +31,7 @@ import { PrismaModule } from './prisma/prisma.module';
         return {
           dialect: new PostgresDialect({
             pool: new Pool({
-              database: config.get<string>('DATABASE_USER'),
+              database: config.get<string>('DATABASE_NAME'),
               host: config.get<string>('DATABASE_HOST'),
               user: config.get<string>('DATABASE_USER'),
               password: config.get<string>('DATABASE_PASSWORD'),
