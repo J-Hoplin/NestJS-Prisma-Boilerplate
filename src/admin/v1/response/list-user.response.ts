@@ -11,16 +11,16 @@ export class AdminV1ListUserItem {
   id: string;
 
   @ApiProperty()
-  firstName: string;
+  first_name: string;
 
   @ApiProperty()
-  lastName: string;
+  last_name: string;
 
   @ApiProperty()
   email: string;
 
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   constructor(data: AdminV1ListUserItem) {
     Object.assign(this, data);

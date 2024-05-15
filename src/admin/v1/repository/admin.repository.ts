@@ -15,7 +15,7 @@ export abstract class AdminV1Repository {
     count: number;
     users: Pick<
       User,
-      'id' | 'firstName' | 'lastName' | 'email' | 'createdAt'
+      'id' | 'first_name' | 'last_name' | 'email' | 'created_at'
     >[];
   }>;
 }

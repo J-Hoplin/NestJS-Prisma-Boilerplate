@@ -2,12 +2,12 @@
 import { Injectable } from '@nestjs/common';
 
 // Third-party Packages
-import { $Enums } from '@prisma/client';
+import { $Enums, User } from '@prisma/client';
 
 // Custom Packages
 import { PrismaService } from '@app/prisma/prisma.service';
 import { UserV1SigninDto, UserV1SignupDto } from '../../dto';
-import { AuthV1Repository } from '../auth.repository';
+import type { AuthV1Repository } from '../auth.repository';
 
 @Injectable()
 export class AuthPrismaRepository implements AuthV1Repository {
@@ -16,26 +16,14 @@ export class AuthPrismaRepository implements AuthV1Repository {
   async userSignup(
     data: UserV1SignupDto,
     type: $Enums.SignupType,
-  ): Promise<
-    Pick<
-      {
-        id: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        password: string;
-        role: $Enums.UserRole;
-        signupType: $Enums.SignupType;
-        createdAt: Date;
-        updatedAt: Date;
-      },
-      'id'
-    >
-  > {
+  ): Promise<Pick<User, 'id'>> {
     const newUser = await this.prisma.user.create({
       data: {
-        ...data,
-        signupType: type,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        password: data.password,
+        sign_up_type: type,
       },
       select: {
         id: true,
@@ -43,22 +31,9 @@ export class AuthPrismaRepository implements AuthV1Repository {
     });
     return newUser;
   }
-  async userSignin(data: UserV1SigninDto): Promise<
-    Pick<
-      {
-        id: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        password: string;
-        role: $Enums.UserRole;
-        signupType: $Enums.SignupType;
-        createdAt: Date;
-        updatedAt: Date;
-      },
-      'id' | 'password'
-    >
-  > {
+  async userSignin(
+    data: UserV1SigninDto,
+  ): Promise<Pick<User, 'id' | 'password'>> {
     const findUser = await this.prisma.user.findUnique({
       where: {
         email: data.email,

@@ -3,10 +3,10 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 
 // Custom Packages
 import { AllowRole } from '@app/common/decorator/role/roles.decorator';
-import { AdminV1Service } from './auth.service';
+import { RoleGuard } from '@app/common/guard';
+import { AdminV1Service } from './admin.service';
 import { AdminV1ControllerDocs, AdminV1ListUserDocs } from './docs';
 import { AdminV1ListUserQuery } from './dto';
-import { RoleGuard } from '@app/common/guard';
 
 @Controller({
   version: '1',

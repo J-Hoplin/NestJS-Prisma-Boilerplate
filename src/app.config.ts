@@ -36,9 +36,9 @@ export async function initializeAdminAccount<
       email: adminEmail,
       password: adminPW,
       role: 'ADMIN',
-      firstName: 'Admin',
-      lastName: 'Admin',
-      signupType: 'LOCAL',
+      first_name: 'Admin',
+      last_name: 'Admin',
+      sign_up_type: 'LOCAL',
     },
   });
 }

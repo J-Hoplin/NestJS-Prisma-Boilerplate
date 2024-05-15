@@ -6,7 +6,7 @@ import { Prisma, User } from '@prisma/client';
 
 // Custom Packages
 import { ListUserCategory } from '@app/admin/v1/dto';
-import { AdminV1Repository } from '@app/admin/v1/repository/admin.repository';
+import type { AdminV1Repository } from '@app/admin/v1/repository/admin.repository';
 import { PrismaService } from '@app/prisma/prisma.service';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class AdminPrismaRepository implements AdminV1Repository {
     count: number;
     users: Pick<
       User,
-      'id' | 'firstName' | 'lastName' | 'email' | 'createdAt'
+      'id' | 'first_name' | 'last_name' | 'email' | 'created_at'
     >[];
   }> {
     let whereQuery: Prisma.UserWhereInput = {};
@@ -31,7 +31,7 @@ export class AdminPrismaRepository implements AdminV1Repository {
     switch (category) {
       case ListUserCategory.name:
         whereQuery = {
-          firstName: {
+          first_name: {
             contains: search,
             mode: 'insensitive',
           },
@@ -50,16 +50,21 @@ export class AdminPrismaRepository implements AdminV1Repository {
       this.prisma.user.findMany({
         skip: (page - 1) * limit,
         take: limit,
-        where: whereQuery,
+        where: {
+          email: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
         orderBy: {
-          createdAt: order,
+          created_at: order,
         },
         select: {
           id: true,
-          firstName: true,
-          lastName: true,
+          first_name: true,
+          last_name: true,
           email: true,
-          createdAt: true,
+          created_at: true,
         },
       }),
       this.prisma.user.count({
