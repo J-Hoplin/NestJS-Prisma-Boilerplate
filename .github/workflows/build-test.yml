@@ -1,0 +1,25 @@
+name: Applicaton-Build-Test
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - '.github/workflows/**'
+run-name: Application Build Test
+jobs:
+  build:
+    name: Template Build Test
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Repository Checkout
+        uses: actions/checkout@v4
+      - name: Node.js environment settings
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: Check Application Build
+        run: yarn build
