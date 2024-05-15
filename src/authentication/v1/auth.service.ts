@@ -4,7 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
 // Third-party Packages
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import * as bcrypt from 'bcryptjs';
 
 // Custom Packages
@@ -38,14 +37,16 @@ export class UserAuthV1Service {
       const accessToken = await this.issueToken({ id: newUser.id });
       return new TokenAuthResponse(accessToken);
     } catch (err) {
+      throw new CredentialAlreadyTakenException();
+      // TODO: Kysley Error Handling (Driver level handler)
       // Prisma Unique constraint
-      if (err instanceof PrismaClientKnownRequestError) {
-        if (err.code === 'P2002') {
-          throw new CredentialAlreadyTakenException();
-        }
-      }
-      // Else
-      throw err;
+      // if (err instanceof PrismaClientKnownRequestError) {
+      //   if (err.code === 'P2002') {
+      //     throw new CredentialAlreadyTakenException();
+      //   }
+      // }
+      // // Else
+      // throw err;
     }
   }
 

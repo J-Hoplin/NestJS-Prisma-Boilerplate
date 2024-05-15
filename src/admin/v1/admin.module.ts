@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common';
 import { AdminV1Controller } from './admin.controller';
 
 import { AdminV1Service } from './admin.service';
-import { AdminKysleyRepository, AdminV1Repository } from './repository';
+import { AdminPrismaRepository, AdminV1Repository } from './repository';
 
 @Module({
   controllers: [AdminV1Controller],
@@ -13,7 +13,7 @@ import { AdminKysleyRepository, AdminV1Repository } from './repository';
     AdminV1Service,
     {
       provide: AdminV1Repository,
-      useClass: AdminKysleyRepository,
+      useClass: AdminPrismaRepository,
     },
   ],
   exports: [AdminV1Service, AdminV1Repository],

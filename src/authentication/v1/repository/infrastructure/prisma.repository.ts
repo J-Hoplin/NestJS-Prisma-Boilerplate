@@ -31,22 +31,9 @@ export class AuthPrismaRepository implements AuthV1Repository {
     });
     return newUser;
   }
-  async userSignin(data: UserV1SigninDto): Promise<
-    Pick<
-      {
-        id: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        password: string;
-        role: $Enums.UserRole;
-        signupType: $Enums.SignupType;
-        createdAt: Date;
-        updatedAt: Date;
-      },
-      'id' | 'password'
-    >
-  > {
+  async userSignin(
+    data: UserV1SigninDto,
+  ): Promise<Pick<User, 'id' | 'password'>> {
     const findUser = await this.prisma.user.findUnique({
       where: {
         email: data.email,
