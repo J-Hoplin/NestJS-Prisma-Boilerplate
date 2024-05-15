@@ -40,7 +40,7 @@ export function nestSwaggerConfig<
   }
 
   config.addBearerAuth();
-
+  console.log('Modify');
   const document = SwaggerModule.createDocument(app, config.build());
   SwaggerModule.setup('docs', app, document, {
     explorer: true,
