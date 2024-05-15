@@ -4,7 +4,8 @@ on:
     branches:
       - main
     paths:
-      - '**.ts'
+      - 'src/**'
+      - '.github/workflows/**'
 run-name: Application Build Test
 jobs:
   build:
