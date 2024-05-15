@@ -43,13 +43,13 @@ model User {
 }
 
 model UserProfileImage {
-  id           String   @id @default(uuid())
-  key          String   @db.VarChar(50)
-  originalName String   @map("original_name") @db.Text()
-  extension    String   @db.VarChar(10)
-  sizeKB       BigInt   @map("file_size") @db.BigInt
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(uuid())
+  key           String   @db.VarChar(50)
+  original_name String   @db.Text()
+  extension     String   @db.VarChar(10)
+  size          BigInt   @db.BigInt
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   // Relation: User - UserProfileImage
   user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -34,7 +34,7 @@ export class AdminKysleyRepository implements AdminV1Repository {
         break;
     }
 
-    const [] = await this.db.transaction().execute(async (tx) => {
+    const [users, count] = await this.db.transaction().execute(async (tx) => {
       let userQuery = tx
         .selectFrom('user')
         .select(['id', 'first_name', 'last_name', 'email', 'created_at']);
@@ -57,8 +57,12 @@ export class AdminKysleyRepository implements AdminV1Repository {
         .limit(limit)
         .execute();
       const countQueryResult = await countQuery.execute();
-      return [userQueryResult, countQueryResult[0].count];
+      console.log(countQueryResult);
+      return [userQueryResult, Number(countQueryResult[0].count)];
     });
-    return null;
+    return {
+      count: count,
+      users: users,
+    };
   }
 }
