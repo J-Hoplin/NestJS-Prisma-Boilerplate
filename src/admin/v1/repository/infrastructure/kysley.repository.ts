@@ -24,7 +24,7 @@ export class AdminKysleyRepository implements AdminV1Repository {
     count: number;
     users: Pick<
       User,
-      'id' | 'firstName' | 'lastName' | 'email' | 'createdAt'
+      'id' | 'first_name' | 'last_name' | 'email' | 'created_at'
     >[];
   }> {
     switch (category) {
@@ -37,14 +37,14 @@ export class AdminKysleyRepository implements AdminV1Repository {
     const [] = await this.db.transaction().execute(async (tx) => {
       let userQuery = tx
         .selectFrom('user')
-        .select(['id', 'firstName', 'lastName', 'email', 'createdAt']);
+        .select(['id', 'first_name', 'last_name', 'email', 'created_at']);
       let countQuery = tx
         .selectFrom('user')
         .select(this.db.fn.count('id').as('count'));
       switch (category) {
         case ListUserCategory.name:
-          userQuery = userQuery.where('firstName', 'ilike', `%${search}%`);
-          countQuery = countQuery.where('firstName', 'ilike', `%${search}%`);
+          userQuery = userQuery.where('first_name', 'ilike', `%${search}%`);
+          countQuery = countQuery.where('first_name', 'ilike', `%${search}%`);
           break;
         case ListUserCategory.email:
           userQuery = userQuery.where('email', 'ilike', `%${search}%`);
@@ -52,7 +52,7 @@ export class AdminKysleyRepository implements AdminV1Repository {
           break;
       }
       const userQueryResult = await userQuery
-        .orderBy('createdAt', order)
+        .orderBy('created_at', order)
         .offset((page - 1) * limit)
         .limit(limit)
         .execute();

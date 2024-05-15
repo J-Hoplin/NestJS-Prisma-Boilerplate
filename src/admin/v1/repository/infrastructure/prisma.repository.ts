@@ -23,7 +23,7 @@ export class AdminPrismaRepository implements AdminV1Repository {
     count: number;
     users: Pick<
       User,
-      'id' | 'firstName' | 'lastName' | 'email' | 'createdAt'
+      'id' | 'first_name' | 'last_name' | 'email' | 'created_at'
     >[];
   }> {
     let whereQuery: Prisma.UserWhereInput = {};
@@ -31,7 +31,7 @@ export class AdminPrismaRepository implements AdminV1Repository {
     switch (category) {
       case ListUserCategory.name:
         whereQuery = {
-          firstName: {
+          first_name: {
             contains: search,
             mode: 'insensitive',
           },
@@ -57,14 +57,14 @@ export class AdminPrismaRepository implements AdminV1Repository {
           },
         },
         orderBy: {
-          createdAt: order,
+          created_at: order,
         },
         select: {
           id: true,
-          firstName: true,
-          lastName: true,
+          first_name: true,
+          last_name: true,
           email: true,
-          createdAt: true,
+          created_at: true,
         },
       }),
       this.prisma.user.count({
