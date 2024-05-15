@@ -1,3 +1,53 @@
+# Add Kysley Repository
+
+## Import Nest-Kysley Module
+
+- Used Package: https://github.com/kazu728/nestjs-kysely
+
+You need to add `KysleyModule` in AppModule. Leverage `common/databse/index.js` for kysley client type setting.
+
+```typescript
+// app.module.ts
+@Module({
+  imports: [
+    LoggerModule,
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+    }),
+    KyselyModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        return {
+          dialect: new PostgresDialect({
+            pool: new Pool({
+              database: config.get<string>('DATABASE_NAME'),
+              host: config.get<string>('DATABASE_HOST'),
+              user: config.get<string>('DATABASE_USER'),
+              password: config.get<string>('DATABASE_PASSWORD'),
+              port: +config.get<string>('DATABASE_PORT'),
+              max: +config.get<string>('DATABASE_MAX_CONNECTION_POOL'),
+            }),
+          }),
+        };
+      },
+    }),
+    // Some Other modules
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule implements NestModule {
+  // Codes
+}
+```
+
+## Implement Repository
+
+Example show repository implementation with template repository abstract class. For your application, you need to write your own repository or inject to your service directly.
+
+```typescript
 // Standard Packages
 import { Injectable } from '@nestjs/common';
 
@@ -66,3 +116,4 @@ export class AdminKysleyRepository implements AdminV1Repository {
     };
   }
 }
+```
