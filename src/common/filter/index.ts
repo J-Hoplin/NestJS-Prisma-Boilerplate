@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 
 // Third-party Packages
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { captureException } from '@sentry/node';
 
 // Custom Packages
 import { ExceptionPayload, RootException } from '../error';
@@ -19,7 +20,6 @@ export class RootExceptionFilter implements ExceptionFilter {
 
   catch(exception: any, host: ArgumentsHost) {
     const context = host.switchToHttp();
-    const request: Request = context.getRequest<Request>();
     const response: Response = context.getResponse<Response>();
 
     let responseStatusCode = 500;
@@ -42,7 +42,7 @@ export class RootExceptionFilter implements ExceptionFilter {
     // Custom Exception
     else if (exception instanceof RootException) {
       // Response Message
-      const response = exception.message;
+      const response = exception.payload;
       // Response Status Code
       const statusCode = exception.statuscode;
       responseErrorPayload = response;
@@ -59,6 +59,7 @@ export class RootExceptionFilter implements ExceptionFilter {
         message: errorMessage,
       };
     }
+    captureException(exception);
     const exceptionResponse: ICommonResponse = {
       success: false,
       data: null,

@@ -1,3 +1,23 @@
+## Sentry Init
+
+- Invoke `initializeSentry` from `app.config.ts`
+
+  ```typescript
+  async function bootstrap() {
+    const app = await NestFactory.create(AppModule, {
+      bufferLogs: true,
+    });
+    initializeSentry(app)
+
+    ...
+  }
+  ```
+
+- You need to set `SENTRY_DSN` from `.env` file.
+- Sentry capture already supported by template exception filter
+- This template will set error code as Sentry Error name. If `Unknown` given, It'll set error with this format: `Unknown: (error message)`
+  ![img](https://github.com/J-Hoplin/NestJS-Prisma-Boilerplate/assets/45956041/a1c67ecc-aaed-48b0-a848-a79e86ec9d82)
+
 ## TODO Left
 
 ### Start
@@ -38,5 +58,5 @@ yarn start
 
 ### CI/CD
 
-- [ ] Github Actions base script
+- [x] Github Actions base script
 - [ ] Elastic Beanstalk boiler command and directories(Follos EB standard)

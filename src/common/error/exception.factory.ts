@@ -13,9 +13,14 @@ export const createException = (
     code: code,
     message: message,
   };
+
+  // This used for sentry error code
+  // Why?: To prevent sentry message code duplication if code given with unknown
+  const errorContextName =
+    code === codeUnknown ? `${codeUnknown} - ${message}` : code;
   return class extends RootException {
     constructor() {
-      super(payload, statusCode);
+      super(payload, statusCode, errorContextName);
     }
   };
 };
