@@ -12,10 +12,18 @@ import { ExceptionPayload } from '../types/exception.payload';
 export abstract class RootException<
   T extends ExceptionPayload = ExceptionPayload,
   U extends number = number,
-> {
+> extends Error {
+  public stack?: string;
+  public message: string;
+
   // Set every message to readonly
   constructor(
-    public readonly message: T,
+    public readonly payload: T,
     public readonly statuscode: U,
-  ) {}
+    public readonly name: string,
+  ) {
+    super();
+    // In case of custom exception class, it'll only allow  string error message
+    this.message = payload.message as string;
+  }
 }

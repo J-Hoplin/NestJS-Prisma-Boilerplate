@@ -6,15 +6,28 @@ import {
   VersioningType,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 
 // Third-party Packges
 import * as bcrypt from 'bcryptjs';
+import * as Sentry from '@sentry/node';
 
 // Custom Packages
 import { LocalGuard } from './authentication/guard/local.guard';
 import { RootExceptionFilter } from './common/filter';
 import { CommonResponseInterceptor } from './common/interceptors';
 import { PrismaService } from './prisma/prisma.service';
+
+export async function initializeSentry<
+  T extends INestApplication = INestApplication,
+>(app: T) {
+  const config = app.get<ConfigService>(ConfigService);
+  Sentry.init({
+    dsn: config.get<string>('SENTRY_DSN'),
+    tracesSampleRate: 1.0,
+    integrations: [Sentry.prismaIntegration()],
+  });
+}
 
 // Warning: Do not user this in production
 export async function initializeAdminAccount<
