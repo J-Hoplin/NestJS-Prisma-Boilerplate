@@ -5,12 +5,12 @@ import {
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
+import { Reflector } from '@nestjs/core';
 
 // Third-party Packges
-import * as bcrypt from 'bcryptjs';
 import * as Sentry from '@sentry/node';
+import * as bcrypt from 'bcryptjs';
 
 // Custom Packages
 import { LocalGuard } from './authentication/guard/local.guard';
