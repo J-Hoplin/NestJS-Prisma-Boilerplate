@@ -8,6 +8,7 @@ import * as bcrypt from 'bcryptjs';
 
 // Custom Packages
 import { JwtPayload } from '@app/common/types';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { UserV1SigninDto, UserV1SignupDto } from './dto';
 import {
   CredentialAlreadyTakenException,
@@ -37,16 +38,13 @@ export class UserAuthV1Service {
       const accessToken = await this.issueToken({ id: newUser.id });
       return new TokenAuthResponse(accessToken);
     } catch (err) {
-      throw new CredentialAlreadyTakenException();
-      // TODO: Kysley Error Handling (Driver level handler)
-      // Prisma Unique constraint
-      // if (err instanceof PrismaClientKnownRequestError) {
-      //   if (err.code === 'P2002') {
-      //     throw new CredentialAlreadyTakenException();
-      //   }
-      // }
-      // // Else
-      // throw err;
+      if (err instanceof PrismaClientKnownRequestError) {
+        if (err.code === 'P2002') {
+          throw new CredentialAlreadyTakenException();
+        }
+      }
+      // Else
+      throw err;
     }
   }
 
