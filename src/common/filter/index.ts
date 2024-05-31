@@ -7,11 +7,11 @@ import {
 } from '@nestjs/common';
 
 // Third-party Packages
-import { Response } from 'express';
 import { captureException } from '@sentry/node';
+import { Response } from 'express';
 
 // Custom Packages
-import { ExceptionPayload, RootException } from '../error';
+import { ExceptionPayload, RootException, createException } from '../error';
 import { ICommonResponse } from '../types';
 
 @Catch()
@@ -21,7 +21,7 @@ export class RootExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const context = host.switchToHttp();
     const response: Response = context.getResponse<Response>();
-
+    let targetException = exception;
     let responseStatusCode = 500;
     let responseErrorPayload: ExceptionPayload = {
       code: this.unknownCode,
@@ -29,28 +29,28 @@ export class RootExceptionFilter implements ExceptionFilter {
     };
 
     // If exception is http exception instance
-    if (exception instanceof HttpException) {
+    if (targetException instanceof HttpException) {
       // Response Message
-      const response = exception.getResponse();
+      const response = targetException.getResponse();
       // Response Status Code
-      responseStatusCode = exception.getStatus();
+      responseStatusCode = targetException.getStatus();
       responseErrorPayload = {
         code: this.unknownCode,
         message: response,
       };
     }
     // Custom Exception
-    else if (exception instanceof RootException) {
+    else if (targetException instanceof RootException) {
       // Response Message
-      const response = exception.payload;
+      const response = targetException.payload;
       // Response Status Code
-      const statusCode = exception.statuscode;
+      const statusCode = targetException.statuscode;
       responseErrorPayload = response;
       responseStatusCode = statusCode;
     }
     // Error
     else {
-      const errorMessage = (exception as Error).message;
+      const errorMessage = targetException.message;
       // Response Status Code
       responseStatusCode = 500;
       // Response Message
@@ -58,8 +58,13 @@ export class RootExceptionFilter implements ExceptionFilter {
         code: this.unknownCode,
         message: errorMessage,
       };
+      targetException = new (class extends createException(
+        responseStatusCode,
+        errorMessage ?? exception.name,
+        this.unknownCode,
+      ) {})();
     }
-    captureException(exception);
+    captureException(targetException);
     const exceptionResponse: ICommonResponse = {
       success: false,
       data: null,
