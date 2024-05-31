@@ -13,9 +13,6 @@ export abstract class RootException<
   T extends ExceptionPayload = ExceptionPayload,
   U extends number = number,
 > extends Error {
-  public stack?: string;
-  public message: string;
-
   // Set every message to readonly
   constructor(
     public readonly payload: T,
