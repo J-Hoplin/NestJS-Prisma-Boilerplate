@@ -4,13 +4,13 @@ services:
     image: postgres:16.2-alpine
     restart: always
     environment:
-      - "POSTGRES_PASSWORD=hoplin1234!"
-      - "POSTGRES_DB=template"
-      - "TZ=Asia/Seoul"
+      - 'POSTGRES_PASSWORD=hoplin1234!'
+      - 'POSTGRES_DB=template'
+      - 'TZ=Asia/Seoul'
     ports:
-      - "5432:5432"
+      - '5432:5432'
     networks:
-      - mogakoffee
+      - network
 networks:
-  mogakoffee:
-      driver: bridge
+  network:
+    driver: bridge
