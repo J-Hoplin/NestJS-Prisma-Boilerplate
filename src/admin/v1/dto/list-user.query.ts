@@ -1,5 +1,5 @@
 // Custom Pacakges
-import { PaginationQuery } from '@app/common/decorator';
+import { PaginationQuery } from '@app/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 
