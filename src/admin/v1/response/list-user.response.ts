@@ -4,8 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 // Third-party Packages
 
 // Custom Pacakges
-import { PaginateMetadata } from '@app/common/decorator';
-
+import { PaginateMetadata } from '@app/common';
 export class AdminV1ListUserItem {
   @ApiProperty()
   id: string;

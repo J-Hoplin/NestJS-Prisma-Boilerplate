@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 // Third-party Pacakges
 
 // Custom Packages
-import { PaginateMetadata } from '@app/common/decorator';
+import { PaginateMetadata } from '@app/common';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { AdminV1ListUserQuery } from './dto';
 import { AdminV1Repository } from './repository';
