@@ -10,6 +10,8 @@
     "db:down": "docker-compose -f ./deployments/database/docker-compose.yaml down",
     "db:push": "npx prisma db push",
     "db:migrate": "npx prisma migrate --name $1",
+    "db:sync": "npx prisma migrate deploy",
+    "db:reset": "npx prisma migrate reset",
     "db:generate": "npx prisma generate",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

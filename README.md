@@ -32,7 +32,6 @@ yarn start
 
 ### Supported Repository Pattern
 
-- Kysley -> For Type-Safe Raw Query
 - Prisma
 
 ### Application
