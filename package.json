@@ -9,7 +9,7 @@
     "db:up": "docker-compose -f ./deployments/database/docker-compose.yaml up -d",
     "db:down": "docker-compose -f ./deployments/database/docker-compose.yaml down",
     "db:push": "npx prisma db push",
-    "db:migrate": "npx prisma migrate --name $1",
+    "db:migrate": "npx prisma migrate dev --name $1",
     "db:sync": "npx prisma migrate deploy",
     "db:reset": "npx prisma migrate reset",
     "db:generate": "npx prisma generate",
