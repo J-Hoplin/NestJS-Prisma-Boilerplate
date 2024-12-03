@@ -22,5 +22,6 @@
       "@decorator/*": ["src/common/decorator/*"],
       "@prisma/*": ["src/prisma/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }
