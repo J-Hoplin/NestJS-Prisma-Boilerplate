@@ -1,8 +1,15 @@
 // Nest Packages
 import { Module } from '@nestjs/common';
-import { AdminV1Module } from './v1/admin.module';
+
+// Custom Pacakges
+
+import { AdminController } from './admin.controller';
+import { AdminRepository } from './admin.repository';
+import { AdminService } from './admin.service';
 
 @Module({
-  imports: [AdminV1Module],
+  controllers: [AdminController],
+  providers: [AdminService, AdminRepository],
+  exports: [AdminService, AdminRepository],
 })
 export class AdminModule {}

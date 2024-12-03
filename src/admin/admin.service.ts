@@ -6,15 +6,15 @@ import { Injectable } from '@nestjs/common';
 // Custom Packages
 import { PaginateMetadata } from '@app/common';
 import { PrismaService } from '@app/prisma/prisma.service';
+import { AdminRepository } from './admin.repository';
 import { AdminV1ListUserQuery } from './dto';
-import { AdminV1Repository } from './repository';
 import { AdminV1ListUserResponse } from './response';
 
 @Injectable()
-export class AdminV1Service {
+export class AdminService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly repository: AdminV1Repository,
+    private readonly repository: AdminRepository,
   ) {}
 
   async listUser(query: AdminV1ListUserQuery) {

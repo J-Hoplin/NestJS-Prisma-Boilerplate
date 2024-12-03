@@ -1,16 +1,10 @@
-// Standard Packages
-import { Injectable } from '@nestjs/common';
-
-// Third-party Packages
-import { $Enums, User } from '@prisma/client';
-
-// Custom Packages
 import { PrismaService } from '@app/prisma/prisma.service';
-import { UserV1SigninDto, UserV1SignupDto } from '../../dto';
-import type { AuthV1Repository } from '../auth.repository';
+import { Injectable } from '@nestjs/common';
+import { $Enums, User } from '@prisma/client';
+import { UserV1SigninDto, UserV1SignupDto } from './dto';
 
 @Injectable()
-export class AuthPrismaRepository implements AuthV1Repository {
+export class AuthRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async userSignup(

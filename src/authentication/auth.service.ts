@@ -9,18 +9,18 @@ import * as bcrypt from 'bcryptjs';
 // Custom Packages
 import { JwtPayload } from '@app/common/types';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { AuthRepository } from './auth.repository';
 import { UserV1SigninDto, UserV1SignupDto } from './dto';
 import {
   CredentialAlreadyTakenException,
   InvalidCredentialException,
 } from './exception';
-import { AuthV1Repository } from './repository';
 import { TokenAuthResponse } from './response';
 
 @Injectable()
-export class UserAuthV1Service {
+export class AuthService {
   constructor(
-    private readonly repository: AuthV1Repository,
+    private readonly repository: AuthRepository,
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
   ) {}

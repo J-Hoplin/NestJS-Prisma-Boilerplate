@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AdminModule } from './admin/admin.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthenticationModule } from './authentication/authentication.module';
+import { AuthModule } from './authentication/auth.module';
 import { HealthModule } from './health/health.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { LoggerModule } from './logger/logger.module';
@@ -22,7 +22,7 @@ import { PrismaModule } from './prisma/prisma.module';
       isGlobal: true,
     }),
     PrismaModule,
-    AuthenticationModule,
+    AuthModule,
     AdminModule,
     HealthModule,
   ],
