@@ -2,7 +2,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-export const AdminV1ControllerDocs = applyDecorators(
+export const AdminControllerDocs = applyDecorators(
   ApiBearerAuth(),
-  ApiTags('Admin API - V1'),
+  ApiTags('Admin API'),
 );

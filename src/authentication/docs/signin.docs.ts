@@ -9,7 +9,7 @@ import {
 // Custom Packages
 import { TokenAuthResponse } from '../response';
 
-export const UserAuthV1SigninDocs = applyDecorators(
+export const UserAuthSigninDocs = applyDecorators(
   ApiOperation({
     summary: 'User signin',
   }),

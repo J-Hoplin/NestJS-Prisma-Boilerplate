@@ -1,14 +1,14 @@
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { $Enums, User } from '@prisma/client';
-import { UserV1SigninDto, UserV1SignupDto } from './dto';
+import { UserSigninDto, UserSignupDto } from './dto';
 
 @Injectable()
 export class AuthRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async userSignup(
-    data: UserV1SignupDto,
+    data: UserSignupDto,
     type: $Enums.SignupType,
   ): Promise<Pick<User, 'id'>> {
     const newUser = await this.prisma.user.create({
@@ -26,7 +26,7 @@ export class AuthRepository {
     return newUser;
   }
   async userSignin(
-    data: UserV1SigninDto,
+    data: UserSigninDto,
   ): Promise<Pick<User, 'id' | 'password'>> {
     const findUser = await this.prisma.user.findUnique({
       where: {

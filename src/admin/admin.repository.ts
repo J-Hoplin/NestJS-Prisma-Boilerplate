@@ -6,7 +6,7 @@ import { Prisma, User } from '@prisma/client';
 
 // Custom Packages
 import { PrismaService } from '@app/prisma/prisma.service';
-import { ListUserCategory } from './dto';
+import { ListUserCategory } from './serializer/request/list-user.query';
 
 @Injectable()
 export class AdminRepository {
@@ -20,10 +20,7 @@ export class AdminRepository {
     search: string,
   ): Promise<{
     count: number;
-    users: Pick<
-      User,
-      'id' | 'first_name' | 'last_name' | 'email' | 'created_at'
-    >[];
+    users: User[];
   }> {
     let whereQuery: Prisma.UserWhereInput = {};
 
@@ -57,13 +54,6 @@ export class AdminRepository {
         },
         orderBy: {
           created_at: order,
-        },
-        select: {
-          id: true,
-          first_name: true,
-          last_name: true,
-          email: true,
-          created_at: true,
         },
       }),
       this.prisma.user.count({

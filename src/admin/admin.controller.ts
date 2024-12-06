@@ -5,22 +5,27 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AllowRole } from '@app/common/decorator/role/roles.decorator';
 import { RoleGuard } from '@app/common/guard';
 import { AdminService } from './admin.service';
-import { AdminV1ControllerDocs, AdminV1ListUserDocs } from './docs';
-import { AdminV1ListUserQuery } from './dto';
+import { AdminControllerDocs, AdminListUserDocs } from './docs';
+import { AdminListUserQuery } from './serializer/request/list-user.query';
+import {
+  AdminListUserItem,
+  AdminListUserResponse,
+} from './serializer/response/list-user.response';
 
 @Controller({
   path: 'admin',
 })
 @UseGuards(RoleGuard)
 @AllowRole(['ADMIN'])
-@AdminV1ControllerDocs
+@AdminControllerDocs
 export class AdminController {
   constructor(private readonly authService: AdminService) {}
 
   @Get('/users')
-  @AllowRole(['MAINTAINER'])
-  @AdminV1ListUserDocs
-  listUsers(@Query() query: AdminV1ListUserQuery) {
-    return this.authService.listUser(query);
+  @AdminListUserDocs
+  async listUsers(@Query() query: AdminListUserQuery) {
+    const { count, users } = await this.authService.listUser(query);
+    const data = users.map((user) => new AdminListUserItem(user));
+    return new AdminListUserResponse(query.page, query.limit, count, data);
   }
 }

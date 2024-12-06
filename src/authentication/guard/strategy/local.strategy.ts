@@ -7,7 +7,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 // Custom Packages
-import { AuthenticationFailedException } from '@app/common';
+import { AuthenticationFailedException } from '@app/common/error';
 import { JwtPayload, UserPayload } from '@app/common/types';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { LOCAL } from './stretegy.token';

@@ -5,8 +5,8 @@ import { ApiTags } from '@nestjs/swagger';
 // Custom Packages
 import { AllowPublic } from '@app/common/decorator';
 import { AuthService } from './auth.service';
-import { UserAuthV1SigninDocs, UserAuthV1SignupDocs } from './docs';
-import { UserV1SigninDto, UserV1SignupDto } from './dto';
+import { UserAuthSigninDocs, UserAuthSignupDocs } from './docs';
+import { UserSigninDto, UserSignupDto } from './dto';
 
 @Controller({
   path: 'auth',
@@ -18,15 +18,15 @@ export class AuthController {
 
   @Post('/signup')
   @HttpCode(HttpStatus.OK)
-  @UserAuthV1SignupDocs
-  signup(@Body() dto: UserV1SignupDto) {
+  @UserAuthSignupDocs
+  signup(@Body() dto: UserSignupDto) {
     return this.service.signup(dto);
   }
 
   @Post('/signin')
-  @UserAuthV1SigninDocs
+  @UserAuthSigninDocs
   @HttpCode(HttpStatus.OK)
-  signin(@Body() dto: UserV1SigninDto) {
+  signin(@Body() dto: UserSigninDto) {
     return this.service.signin(dto);
   }
 }

@@ -1,5 +1,5 @@
 // Custom Pacakges
-import { PaginationQuery } from '@app/common';
+import { PaginationQuery } from '@app/common/serializer';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 
@@ -8,7 +8,7 @@ export enum ListUserCategory {
   email = 'email',
 }
 
-export class AdminV1ListUserQuery extends PaginationQuery {
+export class AdminListUserQuery extends PaginationQuery {
   @ApiProperty({
     description: 'Search',
     required: false,

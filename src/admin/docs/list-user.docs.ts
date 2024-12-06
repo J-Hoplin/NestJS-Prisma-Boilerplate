@@ -1,13 +1,13 @@
 // Nest Pacakges
 import { applyDecorators } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
-import { AdminV1ListUserResponse } from '../response';
+import { AdminListUserResponse } from '../serializer/response/list-user.response';
 
-export const AdminV1ListUserDocs = applyDecorators(
+export const AdminListUserDocs = applyDecorators(
   ApiOperation({
     description: 'List service user list',
   }),
   ApiOkResponse({
-    type: AdminV1ListUserResponse,
+    type: AdminListUserResponse,
   }),
 );

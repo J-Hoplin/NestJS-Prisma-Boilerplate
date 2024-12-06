@@ -10,7 +10,7 @@ import * as bcrypt from 'bcryptjs';
 import { JwtPayload } from '@app/common/types';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { AuthRepository } from './auth.repository';
-import { UserV1SigninDto, UserV1SignupDto } from './dto';
+import { UserSigninDto, UserSignupDto } from './dto';
 import {
   CredentialAlreadyTakenException,
   InvalidCredentialException,
@@ -25,7 +25,7 @@ export class AuthService {
     private readonly config: ConfigService,
   ) {}
 
-  async signup(dto: UserV1SignupDto): Promise<TokenAuthResponse> {
+  async signup(dto: UserSignupDto): Promise<TokenAuthResponse> {
     const encryptedPassword = await bcrypt.hash(dto.password, 10);
     try {
       const newUser = await this.repository.userSignup(
@@ -48,7 +48,7 @@ export class AuthService {
     }
   }
 
-  async signin(dto: UserV1SigninDto): Promise<TokenAuthResponse> {
+  async signin(dto: UserSigninDto): Promise<TokenAuthResponse> {
     const findUser = await this.repository.userSignin(dto);
     if (!findUser) {
       throw new InvalidCredentialException();
