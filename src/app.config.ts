@@ -90,6 +90,7 @@ export function nestAppConfig<T extends INestApplication = INestApplication>(
   // Set class-validator option
   app.useGlobalPipes(
     new ValidationPipe({
+      transform: true,
       skipNullProperties: true,
       whitelist: true,
     }),
