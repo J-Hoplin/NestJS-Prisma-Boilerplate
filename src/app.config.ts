@@ -33,11 +33,22 @@ export async function initializeSentry<
 export async function initializeAdminAccount<
   T extends INestApplication = INestApplication,
 >(app: T) {
-  const adminEmail = 'admin@admin.com';
-  const adminPW = await bcrypt.hash('admin', 10);
+  const config = app.get<ConfigService>(ConfigService);
+  const prisma = app.get<PrismaService>(PrismaService);
+
+  // Admin Settings
+  const adminEmail = config.get<string>('ADMIN_EMAIL');
+  if (!adminEmail) {
+    throw new Error('Admin Email not given');
+  }
+  let adminPW = config.get<string>('ADMIN_PASSEWORD');
+  if (!adminPW) {
+    throw new Error('Admin Password not given');
+  } else {
+    adminPW = await bcrypt.hash('admin', 10);
+  }
 
   // Create or Update admin user
-  const prisma = app.get<PrismaService>(PrismaService);
   await prisma.user.upsert({
     where: {
       email: adminEmail,
